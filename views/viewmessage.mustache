@@ -3,12 +3,13 @@ view the gabbles
 <a href="/user">Back</a><br><br>
 {{#data}}
 <div class="body">
-   <a href="/like/{{id}}">See who likes me!</a>
   <form class="" action="/like/{{id}}" method="post">
+    <a href="/like/{{id}}">See who likes me!</a>
   <br>Gabble Gab<br>
-  {{body}}<br>
+  {{body}}<br><br>
   <b>{{Users.dataValues.name}}</b><br>
+  {{Users.dataValues.createdAt}}<br>
   <button type="submit">Like me !</button><br>
  </form>
- </div>r
+ </div>
 {{/data}}

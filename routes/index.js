@@ -74,25 +74,39 @@ router.post("/message", function(req, res){
 
 router.get('/message', function(req, res){
   Model.Message.findAll({
-    include: [{ model: Model.User, as: 'Users',  model: Model.Like, as: 'Likes'}]
+    include: [{ model: Model.User, as: 'Users'}, {model: Model.Like, as:'Likes'}]
   })
   .then(function(data){
+    console.log("DADADADATA", data);
     res.render("viewmessage",  {data: data})
   });
 });
 
-router.get('/like', function(req, res){
-  Model.Like.find({
-    include: [{ model: Model.User, as:'User'}]
-  }).then(function(data){
-    // console.log('DATA',data.dataValues.userId);
-    Model.User.findById(data.dataValues.userId)
-    .then(function(user) {
+router.get('/like/:id', function(req, res){
+  // Model.Like.findAll({ where: { postId: req.params.id } })
+  //   // include: [{ model: Model.User, as:'User'}]
+  // }).then(function(data){
+  //
+  //   let arr = [];
+  //
+  //   data.forEach(function(user) {
+  //     arr.push(user.id)
+  //   })
+  //
+  //   //Do another findAll for your Users
+  //   Model.User.findAll({ where: { id: arr } })
+  //   .then(function(users) {
+  //     res.render
+  //   })
+  //
+  //   // console.log('DATA',data.dataValues.userId);
+  //   Model.User.findById(data.dataValues.userId)
+  //   .then(function(user) {
       res.render('viewlikes')
-    })
-
-  })
-
+  //   })
+  //
+  // })
+  //
 })
 
 router.post('/like/:id', function(req, res){
