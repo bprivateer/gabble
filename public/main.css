@@ -1,0 +1,31 @@
+body {
+  align-items: center;
+  border:solid black 1px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  justify-content: center;
+  margin: 30px auto;
+  text-align: center;
+  width: 200px;
+}
+
+a {
+  color: #FF1493;
+  text-decoration: none;
+}
+
+.gabs {
+  border: solid black 1px;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 20px;
+}
+
+/*.content {
+  border: black solid 1px;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 10px;
+}*/
