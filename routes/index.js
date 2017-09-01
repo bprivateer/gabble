@@ -59,6 +59,25 @@ router.get("/user", isAuthenticated, function(req, res) {
   res.render("index", {username: ''});
 });
 
+router.post("/message", function(req, res){
+  let newMessage = Model.Message.create({
+    userId: req.user.id,
+    body: req.body.gabs,})
+    .then(function(data){
+      // console.log("WHEre are we", newMessage)
+    res.redirect("/message")
+  })
+});
+
+router.get('/message', function(req, res){
+  Model.Message.findAll()
+  .then(function(data){
+    console.log("NEW MESSAGE", data);
+    res.render("viewmessage",  {data: data})
+  })
+// console.log("Are we here??",data)
+});
+
 router.get("/logout", function(req, res) {
   req.logout();
   res.redirect("/");

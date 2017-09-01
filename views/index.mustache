@@ -3,7 +3,7 @@
 
 
 <div class="content">
-<form class="" action="/user" method="post">
+<form class="" action="/message" method="post">
 <textarea name="gabs" rows="3" cols="30">Write your gabble here keep it under equal to or under
   140 characters.
 </textarea>
@@ -14,5 +14,8 @@
 View all the gabbles here!<br>
 
 <div class="gabs">
-{{gabs}}
+<a href="/message">View people who liked this message.</a><br>
+{{#data}}
+{{.}}<br>
+{{/data}}
 </div>
