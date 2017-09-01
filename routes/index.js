@@ -31,6 +31,7 @@ router.get("/signup", function(req, res) {
 router.post("/signup", function(req, res) {
   let username = req.body.username
   let password = req.body.password
+  let name = req.body.name
 
   if (!username || !password) {
     req.flash('error', "Please, fill in all the fields.")
@@ -43,7 +44,8 @@ router.post("/signup", function(req, res) {
   let newUser = {
     username: username,
     salt: salt,
-    password: hashedPassword
+    password: hashedPassword,
+    name: name
   }
 
    Model.User.create(newUser)
@@ -60,9 +62,10 @@ router.get("/user", isAuthenticated, function(req, res) {
 });
 
 router.post("/message", function(req, res){
-  let newMessage = Model.Message.create({
+  Model.Message.create({
     userId: req.user.id,
-    body: req.body.gabs,})
+    body: req.body.gabs
+  })
     .then(function(data){
       // console.log("WHEre are we", newMessage)
     res.redirect("/message")
@@ -70,13 +73,41 @@ router.post("/message", function(req, res){
 });
 
 router.get('/message', function(req, res){
-  Model.Message.findAll()
-  .then(function(data){
-    console.log("NEW MESSAGE", data);
-    res.render("viewmessage",  {data: data})
+  Model.Message.findAll({
+    include: [{ model: Model.User, as: 'Users',  model: Model.Like, as: 'Likes'}]
   })
-// console.log("Are we here??",data)
+  .then(function(data){
+    res.render("viewmessage",  {data: data})
+  });
 });
+
+router.get('/like', function(req, res){
+  Model.Like.find({
+    include: [{ model: Model.User, as:'User'}]
+  }).then(function(data){
+    // console.log('DATA',data.dataValues.userId);
+    Model.User.findById(data.dataValues.userId)
+    .then(function(user) {
+      res.render('viewlikes')
+    })
+
+  })
+
+})
+
+router.post('/like/:id', function(req, res){
+Model.Like.create({
+  userId: req.user.id,
+  messageId:req.params.id
+})
+.then(function(data){
+console.log(data);
+  res.redirect('/like')
+}).catch(function(err){
+  res.send("ERROR DID NOT WORK!")
+})
+
+})
 
 router.get("/logout", function(req, res) {
   req.logout();
