@@ -1,7 +1,7 @@
 body {
   align-items: center;
-  border:solid black 1px;
-  border-radius: 4px;
+  /*border:solid black 1px;
+  border-radius: 4px;*/
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
@@ -12,7 +12,10 @@ body {
 }
 
 a {
-  color: #FF1493;
+  background-color: #FF1493;
+  border-radius: 4px;
+  color: white;
+  padding: 2px;
   text-decoration: none;
 }
 
@@ -32,4 +35,14 @@ a {
 
 .body {
   border: black solid 1px;
+}
+.likes {
+  border: black solid 1px;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.users {
+  border: solid 1px black;
 }

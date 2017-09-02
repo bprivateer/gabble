@@ -1,18 +1,15 @@
 <br>
+<div class="likes">
 <a href="/logout">Logout</a><br>
 <a href="/user">Go back and create a Gabble!</a><br>
 <a href="/message">Go back to Gabbles</a><br>
 These are all the people who have liked this post!<br>
+<br>
+<hr>
+Hey, these people like my gabble!<br>
 {{#data}}
-{{Message.dataValues.body}}
-<br><br>Who Created it :
-{{Users.dataValues.name}}<br>
-When was it created? :
-{{Users.dataValues.createdAt}}<br>
-How Many likes :
-{{Likes.length}}<br>
-Who likes it? :
-{{#user}}
-{{user.User.dataValues.name}}<br>
-{{/user}}
+<div class="users">
+<b>{{User.dataValues.name}}<b><br>
+</div>
 {{/data}}
+</div>
