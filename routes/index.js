@@ -73,8 +73,8 @@ router.post("/message", function(req, res){
 });
 
 router.get('/message', function(req, res){
-  Model.Message.findAll({
-    include: [{ model: Model.User, as: 'Users'}, {model: Model.Like, as:'Likes'}]
+  Model.Message.findAll({ order: [['createdAt', 'DESC']], 
+    include: [{ model: Model.User, as: 'Users'}, {model: Model.Like, as: 'Likes'}]
   })
   .then(function(data){
     console.log("DADADADATA", data);
@@ -82,7 +82,16 @@ router.get('/message', function(req, res){
   });
 });
 
+//can i make the like a boolean?? like make a like true or false, and sequelize db:migrate:undo:allowNull
+
 router.get('/like/:id', function(req, res){
+  Model.Message.findById( req.params.id, {
+    include: [{model: Model.User, as: 'Users'}, {model: Model.Like, as: 'Likes'}]
+  })
+  .then(function(data){
+    console.log("SSSSAAAA", data);
+    res.render('viewlikes', {data: data})
+  })
   // Model.Like.findAll({ where: { postId: req.params.id } })
   //   // include: [{ model: Model.User, as:'User'}]
   // }).then(function(data){
@@ -102,7 +111,6 @@ router.get('/like/:id', function(req, res){
   //   // console.log('DATA',data.dataValues.userId);
   //   Model.User.findById(data.dataValues.userId)
   //   .then(function(user) {
-      res.render('viewlikes')
   //   })
   //
   // })
@@ -115,13 +123,32 @@ Model.Like.create({
   messageId:req.params.id
 })
 .then(function(data){
-console.log(data);
-  res.redirect('/like')
+console.log("POPOPOPOP",data);
+  res.redirect('/message')
 }).catch(function(err){
   res.send("ERROR DID NOT WORK!")
 })
 
 })
+
+router.get('/delete/:id', function(req, res){
+  Model.Message.findById(req.params.id)
+  .then(function(data){
+    if(req.user.id === data.userId){
+     data.destroy()
+  .then(function(del){
+    console.log("DEEELLL", del);
+    res.redirect('/message')
+  })
+  .catch(function(err){
+    console.log(err);
+  })
+}})
+ // if(req.user.id == userId){
+ //
+
+});
+
 
 router.get("/logout", function(req, res) {
   req.logout();
