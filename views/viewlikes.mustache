@@ -11,5 +11,8 @@ When was it created? :
 {{Users.dataValues.createdAt}}<br>
 How Many likes :
 {{Likes.length}}<br>
-{{Likes.Like.dataValues.name}}<br>
+Who likes it? :
+{{#user}}
+{{user.User.dataValues.name}}<br>
+{{/user}}
 {{/data}}
