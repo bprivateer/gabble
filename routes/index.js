@@ -73,7 +73,7 @@ router.post("/message", function(req, res){
 });
 
 router.get('/message', function(req, res){
-  Model.Message.findAll({ order: [['createdAt', 'DESC']], 
+  Model.Message.findAll({ order: [['createdAt', 'DESC']],
     include: [{ model: Model.User, as: 'Users'}, {model: Model.Like, as: 'Likes'}]
   })
   .then(function(data){
