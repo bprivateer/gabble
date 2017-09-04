@@ -57,9 +57,9 @@ router.post("/signup", function(req, res) {
   });
 });
 
-router.get("/user", isAuthenticated, function(req, res) {
-  res.render("index", {username: ''});
-});
+// router.get("/user", isAuthenticated, function(req, res) {
+//   res.render("index", {username: ''});
+// });
 
 router.post("/message", function(req, res){
   Model.Message.create({
@@ -95,15 +95,15 @@ Model.Like.findAll({ where: {messageId: req.params.id},
    include: [{ model: Model.User, as: 'User'}]})
    .then(function(data){
      let arr = [];
-     console.log("DAAAAAAAATA", data.id);
+     console.log("DAAAAAAAATTTTTTTA", data.dataValues);
      data.forEach(function(user){
        arr.push(user.id)
-       console.log("ARRAY 2 2 AYYYA2", user);
+       console.log("ARRAY 2 2 AYYYA2", user.dataValues.id);
       //  console.log("ARRAYYYY", user.User.dataValues.name);
      })
      Model.User.findAll({ where: { id:arr } })
      .then(function(users){
-       console.log("Im in here" )
+       console.log("Im in here", users )
        res.render('viewlikes', {data: data} )
 
      })
@@ -169,20 +169,31 @@ Model.Like.create({
 router.get('/delete/:id', function(req, res){
   Model.Message.findById(req.params.id)
   .then(function(data){
-    if(req.user.id === data.userId){
-     data.destroy()
-  .then(function(del){
-    res.redirect('/message')
-  })
-  .catch(function(err){
-    console.log(err);
-    res.redirect('/message')
-  })
-}})
- // if(req.user.id == userId){
- //
+    if(req.user.id == data.userId){
+      data.canDelete = true;
+      data.destroy()
+      .then(function(data){
+console.log(data);
+      })
+    } else {
+      data.canDelete = false
+    }
+  //   if(req.user.id === data.userId){
+  //     data.userId = true;
+  //    data.destroy()
+  // .then(function(del){
+  //   res.redirect('/message')
+  // })
+  // }
+  // .catch(function(err){
+  //   console.log(err);
+  //   res.redirect('/message')
+  // })
+})
 
 });
+
+
 
 
 router.get("/logout", function(req, res) {
