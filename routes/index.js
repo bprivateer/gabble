@@ -167,29 +167,21 @@ Model.Like.create({
 // })
 
 router.get('/delete/:id', function(req, res){
-  Model.Message.findById(req.params.id)
+  Model.Message.findById(req.params.id, {where: { userId: req.user.id, owner:true}})
   .then(function(data){
-    if(req.user.id == data.userId){
-      data.canDelete = true;
-      data.destroy()
-      .then(function(data){
-console.log(data);
-      })
-    } else {
-      data.canDelete = false
-    }
-  //   if(req.user.id === data.userId){
-  //     data.userId = true;
-  //    data.destroy()
-  // .then(function(del){
-  //   res.redirect('/message')
-  // })
-  // }
-  // .catch(function(err){
-  //   console.log(err);
-  //   res.redirect('/message')
-  // })
-})
+    if(req.user.id === data.userId){
+     data.destroy()
+  .then(function(del){
+    console.log(data);
+    res.redirect('/message')
+  })
+  .catch(function(err){
+    console.log(err);
+    res.redirect('/message')
+  })
+}})
+ // if(req.user.id == userId){
+ //
 
 });
 

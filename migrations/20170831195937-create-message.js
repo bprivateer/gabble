@@ -11,7 +11,8 @@ module.exports = {
       userId: {
         allowNull: false,
         foreignKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        owner: true,
       },
       body: {
         type: Sequelize.STRING(140),
