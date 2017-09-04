@@ -18,7 +18,9 @@ view the gabbles
   {{Users.dataValues.createdAt}}<br><br>
   {{Likes.length}}<br>
   <button type="submit">Like me !</button><br><br>
+  {{#owner}}
   <a href="/delete/{{id}}">DESTROY!</a><br><br><br>
+  {{/owner}}
  </form>
  </div>
 {{/data}}

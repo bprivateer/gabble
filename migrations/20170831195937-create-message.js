@@ -12,7 +12,6 @@ module.exports = {
         allowNull: false,
         foreignKey: true,
         type: Sequelize.INTEGER,
-        owner: true,
       },
       body: {
         type: Sequelize.STRING(140),

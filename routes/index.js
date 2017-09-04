@@ -76,7 +76,11 @@ router.get('/message', function(req, res){
   Model.Message.findAll({ order: [['createdAt', 'DESC']],
     include: [{ model: Model.User, as: 'Users'}, {model: Model.Like, as: 'Likes'}]
   }).then(function(data){
-    console.log("DADADADATA", data.data);
+    // if(req.user.id === data.userId){
+    //   owner = true;
+    //   console.log(data.userId);
+    // }
+    console.log("DADADADATA", data.userId);
     res.render("viewmessage",  {data: data})
   });
 });
@@ -99,6 +103,10 @@ Model.Like.findAll({ where: {messageId: req.params.id},
      data.forEach(function(user){
        arr.push(user.id)
        console.log("ARRAY 2 2 AYYYA2", user.dataValues.id);
+
+      //  if(user.id == indexOf(arr)){
+      //
+      //  } ????
       //  console.log("ARRAYYYY", user.User.dataValues.name);
      })
      Model.User.findAll({ where: { id:arr } })
@@ -167,8 +175,7 @@ Model.Like.create({
 // })
 
 router.get('/delete/:id', function(req, res){
-  Model.Message.findById(req.params.id, {where: { userId: req.user.id, owner:true},
-     include: [{model: Mode.User, as: 'Users'}]})
+  Model.Message.findById(req.params.id)
   .then(function(data){
     if(req.user.id === data.userId){
      data.destroy()
@@ -183,7 +190,8 @@ router.get('/delete/:id', function(req, res){
 }})
  // if(req.user.id == userId){
  //
-
+ // , {where: { userId: req.user.id, owner:true},
+ //    include: [{model: Mode.User, as: 'Users'}]}
 });
 
 

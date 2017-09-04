@@ -10,11 +10,9 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        owner: true,
       },
       messageId: {
         type: Sequelize.INTEGER,
-        owner: true,
       },
       createdAt: {
         allowNull: false,
