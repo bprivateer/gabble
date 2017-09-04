@@ -167,7 +167,8 @@ Model.Like.create({
 // })
 
 router.get('/delete/:id', function(req, res){
-  Model.Message.findById(req.params.id, {where: { userId: req.user.id, owner:true}})
+  Model.Message.findById(req.params.id, {where: { userId: req.user.id, owner:true},
+     include: [{model: Mode.User, as: 'Users'}]})
   .then(function(data){
     if(req.user.id === data.userId){
      data.destroy()
