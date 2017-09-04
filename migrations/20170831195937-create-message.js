@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       body: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(140),
       },
       createdAt: {
         allowNull: false,

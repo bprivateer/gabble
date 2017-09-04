@@ -76,6 +76,11 @@ router.get('/message', function(req, res){
   Model.Message.findAll({ order: [['createdAt', 'DESC']],
     include: [{ model: Model.User, as: 'Users'}, {model: Model.Like, as: 'Likes'}]
   }).then(function(data){
+    Model.Message.findById(req.params.id)
+    .then(function(data){
+      if(req.params.id == )
+    })
+    
     console.log("DADADADATA", data);
     res.render("viewmessage",  {data: data})
   });
