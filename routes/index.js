@@ -19,7 +19,7 @@ router.get("/", function(req, res) {
 });
 
 router.post('/', passport.authenticate('local', {
-    successRedirect: '/user',
+    successRedirect: '/message',
     failureRedirect: '/',
     failureFlash: true
 }));
@@ -76,12 +76,7 @@ router.get('/message', function(req, res){
   Model.Message.findAll({ order: [['createdAt', 'DESC']],
     include: [{ model: Model.User, as: 'Users'}, {model: Model.Like, as: 'Likes'}]
   }).then(function(data){
-    Model.Message.findById(req.params.id)
-    .then(function(data){
-      if(req.params.id == )
-    })
-    
-    console.log("DADADADATA", data);
+    console.log("DADADADATA", data.data);
     res.render("viewmessage",  {data: data})
   });
 });
@@ -152,6 +147,24 @@ Model.Like.create({
 })
 
 })
+
+// router.get('/deltelike/:likeid/:id', function(req, res){
+//   Model.Message.findById(req.params.likeid)
+//   .then(function(data){
+//     Model.Like.findById(function(data){
+//     if(req.user.id === data.userId){
+//      data.destroy()
+//   .then(function(del){
+//     res.redirect('/message')
+//   })
+//   .catch(function(err){
+//     console.log(err);
+//     res.redirect('/message')
+//   }
+//   })
+// }})
+// )
+// })
 
 router.get('/delete/:id', function(req, res){
   Model.Message.findById(req.params.id)

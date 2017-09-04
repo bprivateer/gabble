@@ -1,15 +1,14 @@
 <br>
 <div class="likes">
-<a href="/logout">Logout</a><br>
-<a href="/user">Go back and create a Gabble!</a><br>
-<a href="/message">Go back to Gabbles</a><br>
+<a href="/logout">Logout</a><br><br>
+<a href="/message">Go back to Gabbles</a><br><br>
 These are all the people who have liked this post!<br>
 <br>
 <hr>
 Hey, these people like my gabble!<br>
 {{#data}}
 <div class="users">
-<b>{{User.dataValues.name}}<b><br>
+<b>{{User.dataValues.name}}<a href='/deletelike/{{id}}/{{likeId}}'>Delete my like</a><b><br><br>
 </div>
 {{/data}}
 </div>
