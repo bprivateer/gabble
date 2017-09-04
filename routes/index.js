@@ -95,14 +95,15 @@ Model.Like.findAll({ where: {messageId: req.params.id},
    include: [{ model: Model.User, as: 'User'}]})
    .then(function(data){
      let arr = [];
+     console.log("DAAAAAAAATA", data.id);
      data.forEach(function(user){
        arr.push(user.id)
-      //  console.log("ARRAY 2 2 AYYYA2", user.User);
-       console.log("ARRAYYYY", user.User.dataValues.name);
+       console.log("ARRAY 2 2 AYYYA2", user);
+      //  console.log("ARRAYYYY", user.User.dataValues.name);
      })
      Model.User.findAll({ where: { id:arr } })
      .then(function(users){
-       console.log("Im in here")
+       console.log("Im in here" )
        res.render('viewlikes', {data: data} )
 
      })
