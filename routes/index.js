@@ -76,6 +76,10 @@ router.get('/message', function(req, res){
   Model.Message.findAll({ order: [['createdAt', 'DESC']],
     include: [{ model: Model.User, as: 'Users'}, {model: Model.Like, as: 'Likes'}]
   }).then(function(data){
+    data.forEach(function(message){
+      if(req.user.id == message.userId)
+      message.owner = true
+    })
     // if(req.user.id === data.userId){
     //   owner = true;
     //   console.log(data.userId);
